@@ -16,9 +16,6 @@ if !&undofile
   finish
 endif
 
-" We disable the default saving of undo file as we're overwriting it
-set noundofile
-
 " Short-circuit undo read/write as noted in `:help wundo`
 augroup vim_undodir_tree
   autocmd!
@@ -31,6 +28,7 @@ augroup END
 " a proper tree
 function! s:GetUndoFile(filepath)
   let undofile = undofile(a:filepath)
+  set noundofile
   let undofile = substitute(undofile, '%', '/', 'g')
   let undofile = substitute(undofile, '//', '/', 'g')
   return undofile
